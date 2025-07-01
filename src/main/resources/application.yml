@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: flightradar
+
+logging:
+  level:
+    com.example.flightradar: DEBUG
+    org.telegram: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+
+
+telegram:
+  bots:
+    name: FlightWatcher25_bot
+    username: FlightWatcher25_bot
+    token: 8163427532:AAFmupPq4ttp4Tg9UB1CFwCq8A-zxMQQdyY
+
+opensky:
+  base-url: https://opensky-network.org./api
+
+aviationstack:
+  base-url: https://api.aviationstack.com/v1
+  api-key: c5489686b4c24502261da0e8e0c8bb1f
+
+flightradar:
+  base-url: https://api.flightradar24.com
+
+server:
+  port: 8080
