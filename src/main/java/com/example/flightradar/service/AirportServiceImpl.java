@@ -21,7 +21,7 @@ public class AirportServiceImpl implements AirportService {
         }
 
         try {
-            // This would integrate with your airport search service
+            // todo integrate with airport search service
             return Messages.AIRPORT_INFO.format(
                     airport,
                     airport,
