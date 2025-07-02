@@ -15,14 +15,14 @@ telegram:
   bots:
     name: FlightWatcher25_bot
     username: FlightWatcher25_bot
-    token: 8163427532:AAFmupPq4ttp4Tg9UB1CFwCq8A-zxMQQdyY
+    token: token
 
 opensky:
   base-url: https://opensky-network.org./api
 
 aviationstack:
   base-url: https://api.aviationstack.com/v1
-  api-key:
+  api-key: api-key
 
 flightradar:
   base-url: https://api.flightradar24.com
