@@ -17,7 +17,7 @@ public class Mappers {
         FlightData flight = new FlightData();
 
         flight.setFlightNumber(flightNumber);
-
+        flight.setSource("AviationStack");
         // Basic flight info
         if (flightInfo.getAirline() != null) {
             flight.setAirline(flightInfo.getAirline().getName());
@@ -71,6 +71,7 @@ public class Mappers {
         flight.setFlightNumber(flightNumber);
         flight.setIcao24((String) state[0]);
         flight.setCallsign(((String) state[1]).trim());
+        flight.setSource("OpenSky");
 
         // Parse coordinates
         if (state[6] != null) {

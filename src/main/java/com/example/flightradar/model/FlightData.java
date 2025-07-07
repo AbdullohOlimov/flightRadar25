@@ -21,7 +21,7 @@ public class FlightData {
     private Double velocity;
     private Double heading;
     private String lastContact;
-
+    private String source;
     public Object[] toFlightInfoFormatArgs() {
         return new Object[] {
                 flightNumber,

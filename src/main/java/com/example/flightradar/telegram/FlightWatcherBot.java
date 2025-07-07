@@ -65,4 +65,6 @@ public class FlightWatcherBot extends TelegramLongPollingBot {
             log.error("Error sending message to chat {}: {}", chatId, e.getMessage(), e);
         }
     }
+
+
 }

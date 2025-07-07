@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -35,20 +36,21 @@ public class FlightServiceImpl implements FlightService {
     public FlightData getFlightInfo(String flightNumber) {
         log.info("Searching for flight: {}", flightNumber);
 
+        CompletableFuture<FlightData> aviationFuture = CompletableFuture.supplyAsync(() -> getFlightFromAviationStack(flightNumber));
 
-        FlightData flightData = getFlightFromAviationStack(flightNumber);
+        CompletableFuture<FlightData> openSkyFuture = CompletableFuture.supplyAsync(() -> getFlightFromOpenSky(flightNumber));
 
-        if (flightData != null) {
-            log.info("Flight {} found via AviationStack", flightNumber);
-            return flightData;
-        }
+        try {
+            Object result = CompletableFuture.anyOf(aviationFuture, openSkyFuture)
+                    .thenApply(obj -> (FlightData) obj)
+                    .get();
 
-        // if data is not find with aviationStack
-        flightData = getFlightFromOpenSky(flightNumber);
-
-        if (flightData != null) {
-            log.info("Flight {} found via OpenSky", flightNumber);
-            return flightData;
+            if (result instanceof FlightData data && data != null) {
+                log.info("Flight {} found via {} API", flightNumber, data.getSource());
+                return data;
+            }
+        } catch (Exception e) {
+            log.error("Parallel API call failed for flight {}: {}", flightNumber, e.getMessage());
         }
 
         log.warn("Flight {} not found in any API", flightNumber);
